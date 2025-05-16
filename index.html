@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to English Elearning!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        header {
+            background-color: #1a52e1;
+            height: 50px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px; 
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+        }
+
+
+        header h1 {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        font-size: 16px;
+        margin: 0;
+        line-height: 1;
+        }
+
+        header svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffffffff;
+        }
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    margin-left: 0; 
+}
+
+        
+        .logo svg {
+            margin: 0;
+            margin-right: 10px;
+        }
+        
+        .menu {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        }
+
+        .menu ul {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        }
+
+        .menu ul li {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        margin: 0;
+        }
+
+        .menu ul li a {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: white;
+        text-decoration: none;
+        }
+
+
+        .menu ul li svg {
+            width: 16px;
+            height: 16px; 
+            margin-right: 5px;
+            fill: #ffffffff;
+            vertical-align: middle;
+        }
+
+        .menu ul li {
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+            padding: 8px 20px;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+            border-radius: 5px; 
+        }
+        
+        .menu ul li:hover {
+            background-color: white;
+            color: #1a52e1;
+            transform: scale(0.8); 
+            border-radius: 10px;
+        }
+
+        .menu ul li:hover a {
+            color: #1a52e1;
+        }
+        
+        .menu ul li:hover svg {
+            fill: #1a52e1;
+        }
+
+
+        .banner {
+            padding-top: 60px;
+        }
+
+        .banner h1 {
+            font-size: 2rem;
+        }
+
+        .banner-container {
+        min-height: 300px;
+        padding: 60px 20px 40px;
+        background: linear-gradient(
+            21deg,
+            #5d88ff 0%,
+            #628fff 50%,
+            #326cff 100%
+        );
+        color: white;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        }
+
+        .banner button {
+        display: inline-block !important; 
+        flex-shrink: 0;                   
+        align-self: center;               
+        width: auto !important;          
+        max-width: 200px;                 
+        white-space: nowrap;             
+        padding: 8px 20px;
+        background-color: #ffffff;
+        color: #326cff;
+        font-weight: 600;
+        font-size: 13px;
+        text-decoration: none;
+        border: none;
+        border-radius: 6px;
+        transition: all 0.25s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        }
+
+
+        
+        .banner button:hover {
+            background-color: #f0f4ff;
+            color: #1a52e1;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        #bar-toggle {
+            display: none;
+        }
+        
+        .bar-label {
+            display: none;
+            cursor: pointer;
+            z-index: 1000;
+            width: 30px;
+            height: 24px;
+            position: relative;
+        }
+        
+        .bar-label .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s;
+        }
+        
+        .bar-label .bar:nth-child(1) {
+            top: 0;
+        }
+        
+        .bar-label .bar:nth-child(2) {
+            top: 10px;
+        }
+        
+        .bar-label .bar:nth-child(3) {
+            top: 20px;
+        }
+        
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 250px;
+            height: 100%;
+            background-color: #1a52e1;
+            transition: 0.5s;
+            z-index: 999;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            z-index: 998;
+        }
+        
+        #bar-toggle:checked ~ .sidebar {
+            left: 0;
+        }
+        
+        #bar-toggle:checked ~ .overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        #bar-toggle:checked ~ header .burger-label .bar:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 9px);
+        }
+        
+        #bar-toggle:checked ~ header .burger-label .bar:nth-child(2) {
+            opacity: 0;
+        }
+        
+        #bar-toggle:checked ~ header .burger-label .bar:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -9px);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar ul li {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar ul li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar ul li svg {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            fill: white;
+        }
+        
+        .bawah {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-top: 25px;
+        }
+
+        .bawah svg {
+            fill: white;
+            width: 32px;
+            height: 32px;
+        }
+
+        .cptp {
+            border: black solid 1px;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+        }
+        .cptp h1 {
+            text-align: center;
+            font-size: 1.8em;
+        }
+        .cptp p {
+            text-align: justify;
+            font-size: 1.2em;
+            padding-top: 0.8vh;
+        }
+
+        .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        }
+
+        .popup-content {
+        position: relative;
+        background-color: white;
+        padding: 20px 20px 40px 20px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        z-index: 10;
+        }
+
+        .close svg {
+        width: 24px;
+        height: 24px;
+        fill: #333;
+        }
+
+
+
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0 20px;
+            }
+            
+            .logo {
+                margin-left: 0;
+            }
+            
+            .menu {
+                display: none;
+            }
+            
+            .bar-label {
+                display: block;
+            }
+
+            .bawah {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                margin-top: 25px;
+            }
+
+            .bawah svg {
+                fill: white;
+                width: 32px;
+                height: 32px;
+            }
+
+            .cptp {
+                border: black solid 1px;
+                border-radius: 10px;
+                padding: 10px;
+                margin: 10px;
+            }
+            .cptp h1 {
+                text-align: center;
+                font-size: 1.8em;
+            }
+            .cptp p {
+                text-align: justify;
+                font-size: 1.2em;
+                padding-top: 0.8vh;
+            }
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 70%;
+            max-width: 500px;
+            text-align: center;
+             max-height: 80%;
+            overflow-y: auto;
+        }
+    
+        .close {
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            font-size: 30px;
+            cursor: pointer;
+            border-radius: 50px;
+        }
+
+        .close svg {
+            fill: white;
+            width: 24px;
+            height: 24px;
+        }
+
+        .button1 {
+            margin-top: 10px;
+            background-color: #1a52e1;
+            color: white;
+            padding: 5px 15px;  
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;  
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+            display: inline-block;   
+            width: auto;
+            align-self: center;      
+            white-space: nowrap;  
+        }
+
+
+
+           footer {
+            background-color: #3666df;
+            color: #fff;
+            padding: 30px 0;
+        }
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .judul-carousel {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    .carousel-item img, .carousel-item video {
+      width: 100%;
+      height: auto;
+      max-height: 50px;
+      border-radius: 10px;
+      filter: brightness(80%);
+    }
+
+.carousel-caption p {
+  color: #1a52e1;
+  font-weight: 600;
+  text-shadow: none;
+}
+
+.carousel-inner {
+  height: 200px;
+}
+
+.carousel {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .carousel-inner {
+      transition: transform 1s ease-in-out;
+    }
+
+
+    .btn-pause {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      z-index: 10;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 24px;
+    }
+
+
+    .carousel-control-prev, .carousel-control-next {
+      position: absolute;
+      top: 50%;
+      z-index: 10;
+      transform: translateY(-50%);
+    }
+
+    .carousel-control-prev {
+      left: 10px;
+    }
+
+    .carousel-control-next {
+      right: 10px;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+    }
+
+
+.footer-logo {
+    margin-top: 15px;
+    width: auto;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.footer-logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+
+        .footer-copy {
+            margin-top: 10px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 14px;
+        }
+.swiper {
+  width: 100%;
+  height: 200px;
+}
+
+.slide-modern {
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.slide1 {
+  background: linear-gradient(135deg, #1a52e1, #326cff);
+}
+
+.slide2 {
+  background: linear-gradient(135deg, #1a52e1, #3a6ff7);
+}
+
+.slide3 {
+  background: linear-gradient(135deg, #1a52e1, #5b8dff);
+}
+
+.slide4 {
+  background: linear-gradient(135deg, #1a52e1, #628fff);
+}
+
+
+
+.carousel-overlay {
+  background: rgba(0, 0, 0, 0.35);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.carousel-overlay h2 {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  max-width: 90%;
+}
+
+.fitur-section h2 {
+  font-size: 2rem;
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+.fitur-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.6s ease-in-out;
+  cursor: pointer;
+}
+
+.fitur-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 767.98px) {
+    .card .row.g-0 {
+      flex-direction: column;
+      height: auto !important;
+    }
+    .card img {
+      width: 100% !important;
+      height: 250px !important;
+      object-fit: cover;
+      border-radius: 0 !important;
+      border-top-left-radius: .25rem;
+      border-top-right-radius: .25rem;
+      display: block;
+    }
+    .card .card-body {
+      padding: 1rem;
+    }
+  }
+
+
+    </style>
+</head>
+<body>
+
+    <input type="checkbox" id="bar-toggle">
+    
+    <header>
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+
+                <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" stroke="none">
+                <path d="M1625 4467 c-856 -228 -870 -232 -879 -260 -8 -21 -6 -31 6 -43 16 -16 1709 -473 1755 -474 16 0 1487 386 1586 416 16 5 17 -19 17 -415 l0 -419 -67 -39 -68 -39 -3 -298 c-2 -212 1 -303 9 -312 20 -24 50 -15 119 36 37 28 75 50 85 50 10 0 48 -22 85 -50 74 -55 101 -61 124 -28 14 19 16 65 16 301 0 316 7 291 -93 349 l-47 28 0 472 c1 375 -2 474 -12 485 -11 11 -1666 457 -1738 468 -14 3 -416 -100 -895 -228z"/>
+                <path d="M1200 3440 c0 -376 2 -430 16 -444 8 -9 18 -16 21 -16 3 0 195 -36 427 -80 579 -110 663 -122 836 -123 180 0 264 12 835 119 380 72 453 88 468 106 16 19 17 55 17 439 0 357 -2 419 -14 419 -8 0 -294 -74 -635 -165 -342 -91 -639 -165 -662 -165 -22 0 -151 30 -287 66 -136 36 -400 106 -587 155 -187 50 -361 97 -387 104 l-48 14 0 -429z"/>
+                <path d="M221 2210 c0 -8 22 -76 48 -150 l48 -135 119 -12 c627 -65 1418 -421 2003 -902 l114 -94 -33 59 c-136 244 -319 468 -520 636 -440 369 -1044 588 -1682 611 -83 2 -98 1 -97 -13z"/>
+                <path d="M4740 2220 c-761 -42 -1458 -364 -1882 -869 -82 -98 -200 -269 -259 -376 l-34 -60 40 33 c291 245 547 413 885 583 435 218 864 350 1217 375 l92 7 50 144 c54 153 59 174 39 171 -7 0 -74 -4 -148 -8z"/>
+                <path d="M380 1748 c1 -7 33 -107 73 -223 l72 -210 75 -2 c572 -17 1082 -107 1461 -257 62 -24 115 -44 116 -42 5 4 -305 205 -411 266 -406 232 -885 410 -1236 460 -150 21 -150 21 -150 8z"/>
+                <path d="M4600 1735 c-369 -51 -825 -217 -1235 -449 -120 -68 -427 -267 -421 -273 2 -2 27 7 57 21 338 148 879 253 1414 274 l180 7 72 210 c40 116 72 213 73 218 0 9 -24 8 -140 -8z"/>
+                <path d="M101 1134 c-27 -34 -27 -66 2 -99 21 -25 44 -29 997 -175 536 -83 985 -152 998 -155 18 -4 22 -12 22 -43 0 -54 41 -133 91 -175 71 -61 114 -69 376 -65 213 3 231 4 269 25 83 44 129 108 149 202 l11 55 989 152 c970 150 990 153 1012 179 46 52 13 125 -56 125 -21 0 -489 -70 -1042 -155 -552 -85 -1007 -155 -1011 -155 -4 0 -19 -17 -33 -37 -19 -29 -25 -50 -25 -91 0 -29 -7 -66 -15 -82 -28 -55 -53 -60 -275 -60 -265 0 -276 6 -282 148 -6 125 102 97 -1068 276 -558 86 -1032 156 -1052 156 -28 0 -42 -6 -57 -26z"/>
+                </g>
+                </svg>
+            <h1>English E-Learning</h1>
+        </div>
+        <div class="menu">
+            <ul>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" stroke="none">
+                            <path d="M2393 5105 c-94 -17 -162 -40 -253 -85 -77 -39 -615 -424 -682 -488 -47 -45 -61 -87 -56 -163 5 -62 32 -109 91 -153 42 -31 155 -35 201 -8 19 11 150 107 292 213 311 232 330 244 419 271 130 40 272 26 395 -38 91 -48 1662 -1303 1710 -1367 20 -26 45 -71 56 -100 18 -50 19 -87 19 -1162 0 -1049 -1 -1113 -18 -1170 -67 -216 -231 -376 -442 -430 -46 -12 -123 -15 -350 -15 -289 0 -292 0 -313 23 -20 22 -21 29 -24 552 l-3 530 -26 71 c-64 175 -202 305 -372 350 -40 11 -147 14 -475 14 l-423 0 -76 -25 c-188 -63 -318 -211 -359 -405 -12 -58 -15 -125 -12 -296 l3 -221 30 -48 c42 -68 100 -98 181 -93 75 5 128 37 165 101 23 40 24 51 29 278 5 219 7 239 25 259 45 49 50 50 442 50 351 0 369 -1 401 -20 62 -38 62 -38 62 -587 0 -549 3 -574 62 -685 40 -75 139 -168 220 -207 101 -48 164 -54 501 -49 286 5 307 6 402 31 382 101 667 399 746 782 18 85 19 156 19 1226 0 1107 -1 1138 -20 1215 -27 105 -88 226 -156 308 -43 52 -239 214 -848 700 -435 347 -816 650 -846 672 -204 151 -470 214 -717 169z"/>
+                            <path d="M635 3815 c-59 -26 -261 -192 -318 -260 -71 -84 -130 -202 -157 -311 -20 -78 -20 -106 -18 -1250 l3 -1169 28 -88 c111 -355 372 -609 726 -705 l96 -26 605 -4 c428 -2 616 0 643 8 21 6 56 27 78 47 102 92 77 263 -48 324 l-48 24 -600 6 c-650 6 -623 3 -751 66 -134 65 -247 194 -302 343 l-27 75 -3 1109 c-3 1232 -6 1167 64 1273 24 38 67 77 150 139 91 67 120 95 135 128 35 77 16 179 -42 233 -54 50 -151 67 -214 38z"/>
+                        </g>
+                    </svg>                    
+                    <a href="index.html">Home</a></li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+
+                            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"  stroke="none">
+                            <path d="M1002 4959 c-290 -48 -529 -272 -602 -563 -20 -78 -20 -114 -20 -1836 0 -1722 0 -1758 20 -1836 67 -267 272 -476 540 -551 62 -17 153 -18 1855 -18 1648 0 1792 1 1820 17 77 42 124 120 125 206 0 87 -44 162 -117 198 -37 18 -105 19 -1803 24 l-1765 5 -50 25 c-140 69 -208 229 -159 373 19 57 92 140 148 170 l41 22 1765 5 c1673 5 1767 6 1805 23 53 24 93 63 116 112 18 38 19 107 19 1751 l0 1710 -25 51 c-27 54 -78 97 -136 113 -43 13 -3502 11 -3577 -1z m1702 -684 c333 -71 572 -403 527 -735 -29 -216 -138 -388 -319 -504 -62 -39 -77 -55 -98 -99 -14 -32 -24 -70 -24 -99 0 -126 -46 -213 -133 -254 -69 -32 -128 -31 -196 2 -104 52 -140 143 -122 308 26 233 131 397 337 528 109 69 139 218 66 323 -36 52 -118 95 -182 95 -64 0 -146 -43 -182 -95 -25 -36 -35 -71 -53 -186 -8 -56 -58 -117 -118 -145 -118 -54 -238 -14 -300 101 -18 32 -22 56 -21 120 3 252 152 478 390 592 127 60 285 78 428 48z m-71 -1956 c21 -5 53 -24 73 -41 134 -118 86 -335 -85 -385 -188 -54 -349 142 -260 317 48 97 158 141 272 109z"/>
+                            </g>
+                            </svg>
+                        <a href="material.html">Material</a></li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+
+                            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"  stroke="none">
+                            <path d="M2305 4799 c-512 -62 -972 -285 -1335 -649 -541 -540 -766 -1290 -614 -2047 121 -608 514 -1157 1059 -1482 621 -370 1401 -413 2070 -114 410 182 779 513 1014 908 415 696 415 1594 0 2290 -130 219 -350 472 -535 618 -300 236 -648 391 -1024 457 -143 25 -496 36 -635 19z m600 -429 c668 -133 1203 -606 1408 -1245 67 -208 82 -311 82 -565 0 -196 -3 -240 -23 -340 -136 -674 -606 -1207 -1247 -1413 -208 -67 -311 -82 -565 -82 -195 0 -240 3 -339 23 -758 153 -1320 714 -1473 1472 -20 101 -23 143 -23 345 1 210 3 241 28 355 167 788 781 1360 1577 1470 36 5 155 7 265 6 157 -3 224 -8 310 -26z"/>
+                            <path d="M2527 3826 c-161 -60 -242 -226 -192 -393 20 -67 89 -144 161 -179 49 -24 63 -26 138 -22 95 5 149 30 206 95 54 62 74 117 74 208 0 67 -4 88 -26 130 -34 65 -91 123 -148 148 -57 26 -162 32 -213 13z"/>
+                            <path d="M2320 3055 c-30 -9 -103 -37 -163 -63 l-108 -47 6 -34 c15 -79 15 -79 107 -74 97 5 125 -6 150 -57 36 -72 25 -162 -67 -560 -75 -325 -89 -413 -83 -524 10 -184 116 -293 302 -312 87 -8 184 15 312 75 59 28 109 53 111 55 6 6 -18 106 -27 111 -5 3 -29 0 -54 -6 -65 -16 -133 -4 -167 30 -59 60 -51 162 46 580 78 337 88 399 83 521 -6 148 -55 233 -165 287 -70 34 -196 42 -283 18z"/>
+                            </g>
+                            </svg>
+                        <a href="about.html">About</a></li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+
+                            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" stroke="none">
+                            <path d="M340 4344 c-30 -8 -59 -19 -65 -25 -11 -11 2161 -2190 2207 -2215 35 -18 121 -18 156 0 46 25 2218 2204 2207 2215 -6 6 -37 17 -70 25 -53 14 -298 16 -2220 15 -1871 0 -2167 -2 -2215 -15z"/>
+                            <path d="M23 4048 c-17 -50 -18 -123 -18 -1488 0 -1365 1 -1438 18 -1487 10 -29 22 -53 25 -53 4 0 354 347 777 770 l770 770 -770 770 c-423 424 -773 770 -777 770 -3 0 -15 -24 -25 -52z"/>
+                            <path d="M4295 3330 l-770 -770 770 -770 c423 -423 773 -770 777 -770 3 0 15 24 25 53 17 49 18 122 18 1487 0 1365 -1 1438 -18 1488 -10 28 -22 52 -25 52 -4 0 -354 -346 -777 -770z"/>
+                            <path d="M1030 1575 c-495 -495 -761 -768 -755 -774 6 -6 37 -17 70 -25 53 -14 299 -16 2215 -16 1916 0 2162 2 2215 16 33 8 64 19 70 25 6 6 -260 279 -757 776 l-767 767 -238 -235 c-218 -216 -245 -239 -317 -275 l-80 -39 -126 0 -126 0 -80 39 c-72 36 -100 60 -315 273 -129 128 -237 233 -240 233 -2 0 -348 -344 -769 -765z"/>
+                            </g>
+                            </svg>
+                        <a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        
+        <label for="bar-toggle" class="bar-label">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </label>
+    </header>
+
+    <div class="sidebar">
+        <ul>
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                    <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" stroke="none">
+                        <path d="M2393 5105 c-94 -17 -162 -40 -253 -85 -77 -39 -615 -424 -682 -488 -47 -45 -61 -87 -56 -163 5 -62 32 -109 91 -153 42 -31 155 -35 201 -8 19 11 150 107 292 213 311 232 330 244 419 271 130 40 272 26 395 -38 91 -48 1662 -1303 1710 -1367 20 -26 45 -71 56 -100 18 -50 19 -87 19 -1162 0 -1049 -1 -1113 -18 -1170 -67 -216 -231 -376 -442 -430 -46 -12 -123 -15 -350 -15 -289 0 -292 0 -313 23 -20 22 -21 29 -24 552 l-3 530 -26 71 c-64 175 -202 305 -372 350 -40 11 -147 14 -475 14 l-423 0 -76 -25 c-188 -63 -318 -211 -359 -405 -12 -58 -15 -125 -12 -296 l3 -221 30 -48 c42 -68 100 -98 181 -93 75 5 128 37 165 101 23 40 24 51 29 278 5 219 7 239 25 259 45 49 50 50 442 50 351 0 369 -1 401 -20 62 -38 62 -38 62 -587 0 -549 3 -574 62 -685 40 -75 139 -168 220 -207 101 -48 164 -54 501 -49 286 5 307 6 402 31 382 101 667 399 746 782 18 85 19 156 19 1226 0 1107 -1 1138 -20 1215 -27 105 -88 226 -156 308 -43 52 -239 214 -848 700 -435 347 -816 650 -846 672 -204 151 -470 214 -717 169z"/>
+                        <path d="M635 3815 c-59 -26 -261 -192 -318 -260 -71 -84 -130 -202 -157 -311 -20 -78 -20 -106 -18 -1250 l3 -1169 28 -88 c111 -355 372 -609 726 -705 l96 -26 605 -4 c428 -2 616 0 643 8 21 6 56 27 78 47 102 92 77 263 -48 324 l-48 24 -600 6 c-650 6 -623 3 -751 66 -134 65 -247 194 -302 343 l-27 75 -3 1109 c-3 1232 -6 1167 64 1273 24 38 67 77 150 139 91 67 120 95 135 128 35 77 16 179 -42 233 -54 50 -151 67 -214 38z"/>
+                    </g>
+                </svg>                    
+                <a href="index.html">Home</a></li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+
+                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"  stroke="none">
+                        <path d="M1002 4959 c-290 -48 -529 -272 -602 -563 -20 -78 -20 -114 -20 -1836 0 -1722 0 -1758 20 -1836 67 -267 272 -476 540 -551 62 -17 153 -18 1855 -18 1648 0 1792 1 1820 17 77 42 124 120 125 206 0 87 -44 162 -117 198 -37 18 -105 19 -1803 24 l-1765 5 -50 25 c-140 69 -208 229 -159 373 19 57 92 140 148 170 l41 22 1765 5 c1673 5 1767 6 1805 23 53 24 93 63 116 112 18 38 19 107 19 1751 l0 1710 -25 51 c-27 54 -78 97 -136 113 -43 13 -3502 11 -3577 -1z m1702 -684 c333 -71 572 -403 527 -735 -29 -216 -138 -388 -319 -504 -62 -39 -77 -55 -98 -99 -14 -32 -24 -70 -24 -99 0 -126 -46 -213 -133 -254 -69 -32 -128 -31 -196 2 -104 52 -140 143 -122 308 26 233 131 397 337 528 109 69 139 218 66 323 -36 52 -118 95 -182 95 -64 0 -146 -43 -182 -95 -25 -36 -35 -71 -53 -186 -8 -56 -58 -117 -118 -145 -118 -54 -238 -14 -300 101 -18 32 -22 56 -21 120 3 252 152 478 390 592 127 60 285 78 428 48z m-71 -1956 c21 -5 53 -24 73 -41 134 -118 86 -335 -85 -385 -188 -54 -349 142 -260 317 48 97 158 141 272 109z"/>
+                        </g>
+                        </svg>
+                    <a href="material.html">Material</a></li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+
+                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"  stroke="none">
+                        <path d="M2305 4799 c-512 -62 -972 -285 -1335 -649 -541 -540 -766 -1290 -614 -2047 121 -608 514 -1157 1059 -1482 621 -370 1401 -413 2070 -114 410 182 779 513 1014 908 415 696 415 1594 0 2290 -130 219 -350 472 -535 618 -300 236 -648 391 -1024 457 -143 25 -496 36 -635 19z m600 -429 c668 -133 1203 -606 1408 -1245 67 -208 82 -311 82 -565 0 -196 -3 -240 -23 -340 -136 -674 -606 -1207 -1247 -1413 -208 -67 -311 -82 -565 -82 -195 0 -240 3 -339 23 -758 153 -1320 714 -1473 1472 -20 101 -23 143 -23 345 1 210 3 241 28 355 167 788 781 1360 1577 1470 36 5 155 7 265 6 157 -3 224 -8 310 -26z"/>
+                        <path d="M2527 3826 c-161 -60 -242 -226 -192 -393 20 -67 89 -144 161 -179 49 -24 63 -26 138 -22 95 5 149 30 206 95 54 62 74 117 74 208 0 67 -4 88 -26 130 -34 65 -91 123 -148 148 -57 26 -162 32 -213 13z"/>
+                        <path d="M2320 3055 c-30 -9 -103 -37 -163 -63 l-108 -47 6 -34 c15 -79 15 -79 107 -74 97 5 125 -6 150 -57 36 -72 25 -162 -67 -560 -75 -325 -89 -413 -83 -524 10 -184 116 -293 302 -312 87 -8 184 15 312 75 59 28 109 53 111 55 6 6 -18 106 -27 111 -5 3 -29 0 -54 -6 -65 -16 -133 -4 -167 30 -59 60 -51 162 46 580 78 337 88 399 83 521 -6 148 -55 233 -165 287 -70 34 -196 42 -283 18z"/>
+                        </g>
+                        </svg>
+                    <a href="about.html">About</a></li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+
+                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" stroke="none">
+                        <path d="M340 4344 c-30 -8 -59 -19 -65 -25 -11 -11 2161 -2190 2207 -2215 35 -18 121 -18 156 0 46 25 2218 2204 2207 2215 -6 6 -37 17 -70 25 -53 14 -298 16 -2220 15 -1871 0 -2167 -2 -2215 -15z"/>
+                        <path d="M23 4048 c-17 -50 -18 -123 -18 -1488 0 -1365 1 -1438 18 -1487 10 -29 22 -53 25 -53 4 0 354 347 777 770 l770 770 -770 770 c-423 424 -773 770 -777 770 -3 0 -15 -24 -25 -52z"/>
+                        <path d="M4295 3330 l-770 -770 770 -770 c423 -423 773 -770 777 -770 3 0 15 24 25 53 17 49 18 122 18 1487 0 1365 -1 1438 -18 1488 -10 28 -22 52 -25 52 -4 0 -354 -346 -777 -770z"/>
+                        <path d="M1030 1575 c-495 -495 -761 -768 -755 -774 6 -6 37 -17 70 -25 53 -14 299 -16 2215 -16 1916 0 2162 2 2215 16 33 8 64 19 70 25 6 6 -260 279 -757 776 l-767 767 -238 -235 c-218 -216 -245 -239 -317 -275 l-80 -39 -126 0 -126 0 -80 39 c-72 36 -100 60 -315 273 -129 128 -237 233 -240 233 -2 0 -348 -344 -769 -765z"/>
+                        </g>
+                        </svg>
+                    <a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+
+    <label for="bar-toggle" class="overlay"></label>
+
+    <div class="banner-container">
+        <div class="banner">
+            <h1>Welcome to English E-learning</h1>
+            <h5>The best place to learn English from anywhere</h5>
+            <button>Get Started</button>
+        </div>
+        <button onclick="openPopup()" class="button1">Lihat Capaian dan Tujuan Pembelajaran</button>
+    </div>
+
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+           <span class="close" onclick="closePopup()">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M18 6L6 18M6 6l12 12" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</span>
+
+    <main>
+        <div class="main-bawah" id="main-bawah">
+            <div class="cptp">
+                <h1>Capaian Dan Tujuan Pembelajaran</h1>
+                <p> Pada akhir Fase E, peserta didik menggunakan teks lisan, tulisan, dan visual dalam berbagai jenis teks untuk berkomunikasi sesuai dengan 'situasi, tujuan, dan pemirsa/pembacanya. Jenis teks sederhana. menjadi rujukan utama dalam mempelajari bahasa Inggris, Peserta didik menggunakan bahasa Inggris untuk menyampaikan keinginan/perasaan dan berdiskusi mengenal teplk yang dekat dengan keseharian. Mereka membaca teks tulisan untuk mempelajari sesuatu/mendapatkan Informasi. Keterampilan inferensi tersirat ketika memahami informasi dalam bahasa Inggris juga mulai berkembang</p>
+                <p> Peserta didik memahami kosakata akrab dan baru yang sering digunakan sehari-hari dengan bantuan gambar/llustrasi, dukungan dari Isyarat visual, atau petunjuk konteks. Peserta didik membata dan menanggapi teks sederhana dan familiar dalam bentuk teks cetak atau digital, termasuk teks visual, multimoda, atdu Interaktif. Peserta didik menemukan Informasi dasar dalam sebuah kalimat dan menjelaskan topik dalam teks yang dibaca atau dilihat.</p>
+                <p> Peserta didik dapat menggunakan iklan secara lisan tulisan/visual dengan baik</p>
+            </div>
+        </div>
+        
+    </main>
+</div>
+</div>
+
+<div class="container mt-4">
+  <div class="swiper mySwiper rounded overflow-hidden">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide slide-modern slide1">
+        <div class="carousel-overlay">
+          <h2>Let's learn English with us!</h2>
+        </div>
+      </div>
+      <div class="swiper-slide slide-modern slide2">
+        <div class="carousel-overlay">
+          <h2>Master English to master the world.</h2>
+        </div>
+      </div>
+      <div class="swiper-slide slide-modern slide3">
+        <div class="carousel-overlay">
+          <h2>English opens the door to endless opportunities.</h2>
+        </div>
+      </div>
+      <div class="swiper-slide slide-modern slide4">
+        <div class="carousel-overlay">
+          <h2>Learn today, lead tomorrow with English.</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section class="fitur-section py-5 bg-light text-center">
+  <div class="container">
+    <h2 class="mb-4 text-primary fw-bold">Fitur Unggulan</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="fitur-card p-4 h-100 shadow-sm rounded bg-white">
+          <h5 class="text-primary mb-3">Materi Interaktif</h5>
+          <p>Pembelajaran dengan video, kuis, dan aktivitas seru yang bisa diakses kapan saja.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="fitur-card p-4 h-100 shadow-sm rounded bg-white">
+          <h5 class="text-primary mb-3">Belajar Mandiri</h5>
+          <p>Akses kapan saja, di mana saja tanpa batas.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="fitur-card p-4 h-100 shadow-sm rounded bg-white">
+          <h5 class="text-primary mb-3">Kuis Menarik</h5>
+          <p>Uji pemahaman kamu dengan kuis singkat setelah setiap sesi materi.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center text-primary fw-bold mb-4">Cuplikan Materi</h2>
+    <p class="text-center text-muted mb-5">Lihat sekilas salah satu materi yang tersedia. Selengkapnya di menu <strong>Material</strong>.</p>
+
+    <div class="card mx-auto shadow-sm" style="max-width: 720px;">
+      <div class="row g-0" style="height: 300px;">
+        <div class="col-md-6">
+          <img src="media/banner.jpg" class="img-fluid rounded-start" alt="Materi Greeting" style="height: 100%; object-fit: cover;">
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="card-body">
+            <h5 class="card-title">Pengenalan: Iklan (Advertisement)</h5>
+            <p class="card-text">
+              Pelajari dasar-dasar iklan dalam bahasa Inggris, termasuk cara membuat, memahami, dan menganalisis teks iklan secara efektif.
+              Materi ini membantu kamu mengenal kosakata dan frasa yang sering digunakan dalam dunia periklanan.
+            </p>
+            <a href="material.html" class="btn btn-outline-primary btn-sm">Lihat Materi Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-3">Siap Menguasai Bahasa Inggris?</h2>
+    <p class="mb-4 fs-5">Mulai belajar sekarang dan tingkatkan kemampuanmu dengan materi interaktif kami.</p>
+    <a href="material.html" class="btn btn-light btn-lg">Mulai Belajar</a>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5 bg-light">
+  <div class="container" style="max-width: 700px;">
+    <h2 class="text-primary fw-bold mb-4 text-center">Pertanyaan Umum</h2>
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
+            Apakah materi bisa diakses gratis?
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Ya, semua materi dasar bisa diakses gratis tanpa biaya.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+            Apakah perlu membuat akun untuk belajar?
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Saat ini belum perlu, kamu bisa langsung belajar tanpa login.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<br><br><br><br>
+
+
+
+  <footer>
+        <div class="container">
+            <div class="row text-start">
+                <div class="col-md-5 mb-4">
+                    <h5>Lorem</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, aspernatur.</p>
+                    <div class="footer-logo">
+                        <img src="https://s7.krakenfiles.com/uploads/14-05-2025/zqYKHR3eG3/image.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Menu</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Material</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Contact</h5>
+                    <p>Instagram: <a href="#">@lorem</a></p>
+                </div>
+            </div>
+            <div class="footer-copy">
+                &copy; 2025 aaaaa. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+      var swiper = new Swiper(".mySwiper", {
+    loop: true,
+    autoplay: {
+      delay: 4000,
+    },
+    effect: "slide",
+    allowTouchMove: true,
+    grabCursor: true,
+  });
+    function openPopup() {
+        document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+    }
+
+    const carousel = document.querySelector('#motivationCarousel');
+  let startX = 0;
+
+  carousel.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+  });
+
+  carousel.addEventListener('touchend', function(e) {
+    let endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) {
+      bootstrap.Carousel.getInstance(carousel).next();
+    } else if (endX - startX > 50) {
+      bootstrap.Carousel.getInstance(carousel).prev();
+    }
+  });
+
+  // Optional: swipe with mouse (desktop)
+  carousel.addEventListener('mousedown', function(e) {
+    startX = e.clientX;
+  });
+
+  carousel.addEventListener('mouseup', function(e) {
+    let endX = e.clientX;
+    if (startX - endX > 50) {
+      bootstrap.Carousel.getInstance(carousel).next();
+    } else if (endX - startX > 50) {
+      bootstrap.Carousel.getInstance(carousel).prev();
+    }
+  });
+</script>
+</body>
+</html>
