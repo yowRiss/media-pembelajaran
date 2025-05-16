@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Detail Materi</title>
+<style>
+  .materi-content {
+    display: none;
+    margin-bottom: 2rem;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  .materi-content.active {
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<h1 style="text-align:center; color:#1a52e1;">Detail Materi</h1>
+
+<!-- Advertisement Materials -->
+<div id="ads-intro" class="materi-content">
+  <h2>📌 What is Advertisement?</h2>
+</div>
+
+<div id="ads-purpose" class="materi-content">
+  <h2>🎯 The Purpose of Advertisements</h2>
+</div>
+
+<div id="ads-types" class="materi-content">
+  <h2>🧾 Types of Advertisements</h2>
+</div>
+
+<div id="ads-features" class="materi-content">
+  <h2>📋 Common Features of Advertisements</h2>
+</div>
+
+<div id="ads-language" class="materi-content">
+  <h2>🗣️ Advertisement Language and Style</h2>
+</div>
+
+<div id="ads-vocab" class="materi-content">
+  <h2>🧠 Common Vocabulary Used in Ads</h2>
+</div>
+
+<div id="ads-slogan" class="materi-content">
+  <h2>✍️ Headline and Slogan Techniques</h2>
+</div>
+
+<div id="ads-audience" class="materi-content">
+  <h2>👥 Understanding Target Audience</h2>
+</div>
+
+<div id="ads-visuals" class="materi-content">
+  <h2>🖼️ Visual Elements in Advertising</h2>
+</div>
+
+<div id="ads-persuasive" class="materi-content">
+  <h2>💬 The Power of Persuasive Words</h2>
+</div>
+
+<div id="ads-analysis" class="materi-content">
+  <h2>🔍 Analyzing Real Advertisements</h2>
+</div>
+
+<div id="ads-writing" class="materi-content">
+  <h2>✏️ Writing a Simple Advertisement Text</h2>
+</div>
+
+<div id="ads-ethics" class="materi-content">
+  <h2>⚖️ Ethics in Advertising</h2>
+</div>
+
+<div id="ads-culture" class="materi-content">
+  <h2>🌍 Cultural Influence on Advertisement</h2>
+</div>
+
+<script>
+  function showMateri() {
+    const params = new URLSearchParams(window.location.search);
+    const materi = params.get('id');
+    const contents = document.querySelectorAll('.materi-content');
+
+    if (materi) {
+      contents.forEach(el => el.classList.remove('active'));
+      const selected = document.getElementById(materi);
+      if (selected) {
+        selected.classList.add('active');
+      } else {
+        contents.forEach(el => el.classList.add('active'));
+      }
+    } else {
+      contents.forEach(el => el.classList.add('active'));
+    }
+  }
+
+  window.onload = showMateri;
+</script>
+
+</body>
+</html>
