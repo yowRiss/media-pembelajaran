@@ -3,15 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to English Elearning!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <title>Quiz</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+        
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .result-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            min-height: 300px;
+            display: none;
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .result-score {
+            font-size: 48px;
+            color: #4285f4;
+            margin: 20px 0;
+        }
+        
+        .score-details {
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .retry-btn {
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+            align-self: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .retry-btn:hover {
+            background-color: #3367d6;
+        }
+        
+        .question-image {
+            max-width: 100%;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        
+        .dialog-container {
+            background-color: #f9f9f9;
+            border-left: 4px solid #4285f4;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .dialog-character {
+            font-weight: bold;
+            color: #4285f4;
+        }
+        
+        .question-number {
+            font-size: 18px;
+            color: #4285f4;
+            margin-bottom: 20px;
+        }
+        
+        .question-text {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option:hover {
+            background-color: #f0f7ff;
+            border-color: #4285f4;
+        }
+        
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: #4285f4;
+            font-weight: bold;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+        }
+        
+        .nav-btn {
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: #3367d6;
+        }
+        
+        .nav-btn:disabled {
+            background-color: #b8b8b8;
+            cursor: not-allowed;
+        }
+        
+        .question-pagination {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .page-number {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .page-number:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .page-number.active {
+            background-color: #4285f4;
+            color: white;
+        }
+        
+        .page-number.answered {
+            background-color: #81c784;
+            color: white;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question-pagination {
+                gap: 8px;
+            }
+            
+            .page-number {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-    <input type="checkbox" id="bar-toggle">
+<input type="checkbox" id="bar-toggle">
     
     <header>
         <div class="logo">
@@ -119,258 +337,334 @@
                     <a href="game.html">Game</a></li>
         </ul>
     </div>
+    
+    <div class="container">
+        <div class="quiz-container" id="quiz-container">
+            <div class="question-number">Question <span id="current-question">1</span> of <span id="total-questions">10</span></div>
+            
+            <div class="question-text" id="question-text">
+                From the image below, what type of advertisement is it?
+            </div>
+            
+            <div id="question-media">
 
-    <label for="bar-toggle" class="overlay"></label>
-
-    <div class="banner-container">
-        <div class="banner">
-            <h1>Welcome to English E-learning</h1>
-            <h5>The best place to learn English from anywhere</h5>
-            <button onclick="window.location.href = 'material.html';">Get Started</button>
-        </div>
-        <button onclick="openPopup()" class="button1">Lihat Capaian dan Tujuan Pembelajaran</button>
-    </div>
-
-
-    <div id="popup" class="popup">
-        <div class="popup-content">
-           <span class="close" onclick="closePopup()">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path d="M18 6L6 18M6 6l12 12" stroke="#333" stroke-width="2" stroke-linecap="round"/>
-  </svg>
-</span>
-
-    <main>
-        <div class="main-bawah" id="main-bawah">
-            <div class="cptp">
-                <h1>Capaian Dan Tujuan Pembelajaran</h1>
-                <p> Pada akhir Fase E, peserta didik menggunakan teks lisan, tulisan, dan visual dalam berbagai jenis teks untuk berkomunikasi sesuai dengan 'situasi, tujuan, dan pemirsa/pembacanya. Jenis teks sederhana. menjadi rujukan utama dalam mempelajari bahasa Inggris, Peserta didik menggunakan bahasa Inggris untuk menyampaikan keinginan/perasaan dan berdiskusi mengenal teplk yang dekat dengan keseharian. Mereka membaca teks tulisan untuk mempelajari sesuatu/mendapatkan Informasi. Keterampilan inferensi tersirat ketika memahami informasi dalam bahasa Inggris juga mulai berkembang</p>
-                <p> Peserta didik memahami kosakata akrab dan baru yang sering digunakan sehari-hari dengan bantuan gambar/llustrasi, dukungan dari Isyarat visual, atau petunjuk konteks. Peserta didik membata dan menanggapi teks sederhana dan familiar dalam bentuk teks cetak atau digital, termasuk teks visual, multimoda, atdu Interaktif. Peserta didik menemukan Informasi dasar dalam sebuah kalimat dan menjelaskan topik dalam teks yang dibaca atau dilihat.</p>
-                <p> Peserta didik dapat menggunakan iklan secara lisan tulisan/visual dengan baik</p>
+            </div>
+            
+            <div class="options" id="options-container">
+                <div class="option" onclick="selectOption(this)">Video</div>
+                <div class="option" onclick="selectOption(this)">Audio</div>
+                <div class="option" onclick="selectOption(this)">billboard</div>
+                <div class="option" onclick="selectOption(this)">Text</div>
+                <div class="option" onclick="selectOption(this)">None of the above</div>
             </div>
         </div>
         
-    </main>
-</div>
-</div>
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <p>Your final score:</p>
+            <div class="result-score" id="result-score">0/10</div>
+            <div class="score-details" id="score-details">
 
-<div class="container mt-4">
-  <div class="swiper mySwiper rounded overflow-hidden">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide slide-modern slide1">
-        <div class="carousel-overlay">
-          <h2>Let's learn English with us!</h2>
-        </div>
-      </div>
-      <div class="swiper-slide slide-modern slide2">
-        <div class="carousel-overlay">
-          <h2>Master English to master the world.</h2>
-        </div>
-      </div>
-      <div class="swiper-slide slide-modern slide3">
-        <div class="carousel-overlay">
-          <h2>English opens the door to endless opportunities.</h2>
-        </div>
-      </div>
-      <div class="swiper-slide slide-modern slide4">
-        <div class="carousel-overlay">
-          <h2>Learn today, lead tomorrow with English.</h2>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<section class="fitur-section py-5 bg-light text-center">
-  <div class="container">
-    <h2 class="mb-4 text-primary fw-bold">Fitur Unggulan</h2>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="fitur-card p-4 h-100 shadow-sm rounded bg-white">
-          <h5 class="text-primary mb-3">Materi Interaktif</h5>
-          <p>Pembelajaran dengan video, kuis, dan aktivitas seru yang bisa diakses kapan saja.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="fitur-card p-4 h-100 shadow-sm rounded bg-white">
-          <h5 class="text-primary mb-3">Belajar Mandiri</h5>
-          <p>Akses kapan saja, di mana saja tanpa batas.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="fitur-card p-4 h-100 shadow-sm rounded bg-white">
-          <h5 class="text-primary mb-3">Kuis Menarik</h5>
-          <p>Uji pemahaman kamu dengan kuis singkat setelah setiap sesi materi.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="py-5 bg-light">
-  <div class="container">
-    <h2 class="text-center text-primary fw-bold mb-4">Cuplikan Materi</h2>
-    <p class="text-center text-muted mb-5">Lihat sekilas salah satu materi yang tersedia. Selengkapnya di menu <strong>Material</strong>.</p>
-
-    <div class="card mx-auto shadow-sm" style="max-width: 720px;">
-      <div class="row g-0" style="height: 300px;">
-        <div class="col-md-6">
-          <img src="media/banner.jpg" class="img-fluid rounded-start" alt="Materi Greeting" style="height: 100%; object-fit: cover;">
-        </div>
-        <div class="col-md-6 d-flex align-items-center">
-          <div class="card-body">
-            <h5 class="card-title">Pengenalan: Iklan (Advertisement)</h5>
-            <p class="card-text">
-              Pelajari dasar-dasar iklan dalam bahasa Inggris, termasuk cara membuat, memahami, dan menganalisis teks iklan secara efektif.
-              Materi ini membantu kamu mengenal kosakata dan frasa yang sering digunakan dalam dunia periklanan.
-            </p>
-            <a href="material.html" class="btn btn-outline-primary btn-sm">Lihat Materi Selengkapnya</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<div class="py-5 bg-primary text-white text-center">
-  <div class="container">
-    <h2 style="font-size: 2.5rem; line-height: 1.2; margin-bottom: 1rem;">
-      Siap Menguasai Bahasa Inggris?
-    </h2>
-    <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
-      Mulai belajar sekarang dan tingkatkan kemampuanmu dengan materi interaktif kami.
-    </p>
-    <div style="display: flex; justify-content: center; margin-top: 20px;">
-      <a href="material.html"
-         style="background-color: white; color: #1a52e1; padding: 10px 24px; font-size: 1rem;
-                font-weight: 600; border-radius: 6px; text-decoration: none; display: inline-block;">
-        Mulai Belajar
-      </a>
-    </div>
-  </div>
-</div>
-
-
-
-
-<section class="py-5 bg-light">
-  <div class="container" style="max-width: 700px;">
-    <h2 class="text-primary fw-bold mb-4 text-center">Pertanyaan Umum</h2>
-    <div class="accordion" id="faqAccordion">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
-            Apakah materi bisa diakses gratis?
-          </button>
-        </h2>
-        <div id="faq1" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
-          <div class="accordion-body">
-            Ya, semua materi dasar bisa diakses gratis tanpa biaya.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
-            Apakah perlu membuat akun untuk belajar?
-          </button>
-        </h2>
-        <div id="faq2" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
-          <div class="accordion-body">
-            Saat ini belum perlu, kamu bisa langsung belajar tanpa login.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<br><br><br><br>
-
-
-
-  <footer>
-        <div class="container">
-            <div class="row text-start">
-                <div class="col-md-5 mb-4">
-                    <h5>Lorem</h5>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, aspernatur.</p>
-                    <div class="footer-logo">
-                        <img src="https://s7.krakenfiles.com/uploads/14-05-2025/zqYKHR3eG3/image.png" alt="">
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5>Menu</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="material.html">Material</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="about.html">About</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <h5>Contact</h5>
-                    <p>Instagram: <a href="#">@lorem</a></p>
-                </div>
             </div>
-            <div class="footer-copy">
-                &copy; 2025 aaaaa. All rights reserved.
-            </div>
+            <button class="retry-btn" onclick="restartQuiz()">Try Again</button>
         </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-      var swiper = new Swiper(".mySwiper", {
-    loop: true,
-    autoplay: {
-      delay: 4000,
+        
+        <div class="navigation" id="navigation-container">
+            <button class="nav-btn" id="prev-btn" onclick="prevQuestion()" disabled>Previous</button>
+            <button class="nav-btn" id="next-btn" onclick="nextQuestion()">Next</button>
+        </div>
+        
+        <div class="question-pagination" id="pagination-container">
+
+        </div>
+    </div>
+    
+    
+    <script>
+        const quizData = [
+    {
+        question: "Look at the advertisement image below. What type of ad is this based on the media used?",
+        options: ["Radio Ad", "TV Ad", "Digital Ad", "Outdoor Ad", "Print Ad"],
+        correct: 3,
+        userAnswer: null,
+        image: "media/banner.jpg",
+        imageAlt: "Question 1"
     },
-    effect: "slide",
-    allowTouchMove: true,
-    grabCursor: true,
-  });
-    function openPopup() {
-        document.getElementById("popup").style.display = "flex";
+    {
+        question: "What type of language is used in the advertisement they are discussing?",
+        options: ["Narrative language", "Persuasive and promotional language", "Informative language", "Formal language", "Descriptive language"],
+        correct: 1,
+        userAnswer: null,
+        dialog: [
+            { character: "Arin", text: "Hey, have you seen that new ad on Instagram?" },
+            { character: "Rose", text: "You mean the one that says 'Get 50% off only today!?'" },
+            { character: "Arin", text: "Yes! It really made me want to click and check it out." }
+        ]
+    },
+    {
+        question: "The ad shows a product printed on paper with descriptions and offers. What kind of ad is this?",
+        options: ["Radio Ad", "TV Ad", "Digital/Online Ad", "Transit ad", "Print Ad"],
+        correct: 4,
+        userAnswer: null,
+        image: "media/sopi.jpg",
+        imageAlt: "Image of Atomic habits book"
+    },
+    {
+        question: "Which of the following is a main purpose of a persuasive advertisement?",
+        options: ["To explain how to use a product", "To educate people about a public issue", "To influence people to buy or try something", "To remind people about a product they love", "To inform people of new regulations"],
+        correct: 2,
+        userAnswer: null
+    },
+    {
+        question: "What type of advertisement are they most likely seeing?",
+        options: ["Audio Ad", "Video Ad", "Email Ad", "Transit ad", "Print Ad"],
+        correct: 1,
+        userAnswer: null,
+        dialog: [
+            { character: "Lisa", text: "Look at that big screen ad in the mall!." },
+            { character: "Mike", text: "Wow, it’s moving and has sound. It really caught my attention." },
+            { character: "Lisa", text: "That’s the power of modern advertising!." }
+        ]
+    },
+    {
+        question: "Which of the following is a digital/online ad?",
+        options: ["Instagram sponsored post", "Newspaper ad", "Radio jingle", "Magazine article", "Billboard"],
+        correct: 0,
+        userAnswer: null,
+    },
+    {
+        question: "Which of these ads is likely to use audio only and no visuals?",
+        options: ["Radio Ad", "TV Ad", "Outdoor Ad", "Digital Ad", "Print Ad"],
+        correct: 0,
+        userAnswer: null
+    },
+    {
+        question: "Which advertisement is most likely to be seen on a highway?",
+        options: ["Radio Ad", "Billboard ad", "TV Ad", "Digital Ad", "Print Ad"],
+        correct: 2,
+        userAnswer: null,
+    },
+    {
+        question: "What makes a persuasive ad different from an informative ad?",
+        options: ["It focuses only on facts.", "It describes the product history.", "It uses emotion and encouragement to convince.", "It repeats the same word.", "It gives scientific research."],
+        correct: 2,
+        userAnswer: null,
+    },
+    {
+        question: "What is the purpose of the advertisement in the email?",
+        options: ["To persuade", "To inform", "To build image", "To remind", "To compare"],
+        correct: 3,
+        userAnswer: null,
+        dialog: [
+            { character: "Emma", text: "Did you get that email from the coffee shop?" },
+            { character: "Alex", text: "Almost done, just one more math problem to solve." },
+            { character: "Emma", text: "Yeah, it said 'Still your favorite coffee” – clever way to remind me.'" },
+            { character: "Alex", text: "It really works." }
+        ]
     }
+];
 
-    function closePopup() {
-        document.getElementById("popup").style.display = "none";
-    }
 
-    const carousel = document.querySelector('#motivationCarousel');
-  let startX = 0;
+        let currentQuestion = 0;
+        const totalQuestions = quizData.length;
+        
+        // initialize
+        function initQuiz() {
+            document.getElementById('total-questions').textContent = totalQuestions;
+            loadQuestion(currentQuestion);
+            createPagination();
+        }
+        
+        // load
+        function loadQuestion(index) {
+            const question = quizData[index];
+            document.getElementById('current-question').textContent = index + 1;
+            document.getElementById('question-text').textContent = question.question;
+            
+            const mediaContainer = document.getElementById('question-media');
+            mediaContainer.innerHTML = '';
+            
+            // image
+            if (question.image) {
+                const img = document.createElement('img');
+                img.src = question.image;
+                img.alt = question.imageAlt || 'Question image';
+                img.classList.add('question-image');
+                mediaContainer.appendChild(img);
+            }
+            
+            // dialog
+            if (question.dialog) {
+                const dialogContainer = document.createElement('div');
+                dialogContainer.classList.add('dialog-container');
+                
+                question.dialog.forEach(line => {
+                    const dialogLine = document.createElement('p');
+                    const characterSpan = document.createElement('span');
+                    characterSpan.classList.add('dialog-character');
+                    characterSpan.textContent = line.character + ': ';
+                    
+                    dialogLine.appendChild(characterSpan);
+                    dialogLine.appendChild(document.createTextNode(line.text));
+                    dialogContainer.appendChild(dialogLine);
+                });
+                
+                mediaContainer.appendChild(dialogContainer);
+            }
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, i) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.classList.add('option');
+                optionDiv.textContent = option;
+                optionDiv.dataset.index = i;
+                
+                if (question.userAnswer === i) {
+                    optionDiv.classList.add('selected');
+                }
+                
+                optionDiv.addEventListener('click', function() {
+                    selectOption(this);
+                });
+                
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            document.getElementById('prev-btn').disabled = index === 0;
+            
+            const nextBtn = document.getElementById('next-btn');
+            if (index === totalQuestions - 1) {
+                nextBtn.textContent = 'Finish Quiz';
+            } else {
+                nextBtn.textContent = 'Next';
+            }
+            
+            updatePagination();
+        }
+        function createPagination() {
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = '';
+            
+            for (let i = 0; i < totalQuestions; i++) {
+                const pageNumber = document.createElement('div');
+                pageNumber.classList.add('page-number');
+                pageNumber.textContent = i + 1;
+                pageNumber.dataset.index = i;
+                
+                pageNumber.addEventListener('click', function() {
+                    currentQuestion = parseInt(this.dataset.index);
+                    loadQuestion(currentQuestion);
+                });
+                
+                paginationContainer.appendChild(pageNumber);
+            }
+            
+            updatePagination();
+        }
+        
+        function updatePagination() {
+            const pageNumbers = document.querySelectorAll('.page-number');
+            
+            pageNumbers.forEach((page, index) => {
+                page.classList.remove('active', 'answered');
+                
+                if (index === currentQuestion) {
+                    page.classList.add('active');
+                }
+                
+                if (quizData[index].userAnswer !== null) {
+                    page.classList.add('answered');
+                }
+            });
+        }
+        
+        function selectOption(optionElement) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            optionElement.classList.add('selected');
+            const selectedIndex = parseInt(optionElement.dataset.index);
+            quizData[currentQuestion].userAnswer = selectedIndex;
+            
+            updatePagination();
+        }
+        
 
-  carousel.addEventListener('touchstart', function(e) {
-    startX = e.touches[0].clientX;
-  });
-
-  carousel.addEventListener('touchend', function(e) {
-    let endX = e.changedTouches[0].clientX;
-    if (startX - endX > 50) {
-      bootstrap.Carousel.getInstance(carousel).next();
-    } else if (endX - startX > 50) {
-      bootstrap.Carousel.getInstance(carousel).prev();
-    }
-  });
-
-  // Optional: swipe with mouse (desktop)
-  carousel.addEventListener('mousedown', function(e) {
-    startX = e.clientX;
-  });
-
-  carousel.addEventListener('mouseup', function(e) {
-    let endX = e.clientX;
-    if (startX - endX > 50) {
-      bootstrap.Carousel.getInstance(carousel).next();
-    } else if (endX - startX > 50) {
-      bootstrap.Carousel.getInstance(carousel).prev();
-    }
-  });
-</script>
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion(currentQuestion);
+            }
+        }
+        
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions - 1) {
+                currentQuestion++;
+                loadQuestion(currentQuestion);
+            } else {
+                showResults();
+            }
+        }
+        
+        // result
+        function showResults() {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('navigation-container').style.display = 'none';
+            document.getElementById('pagination-container').style.display = 'none';
+            
+            const resultContainer = document.getElementById('result-container');
+            resultContainer.style.display = 'flex';
+            
+            let correctAnswers = 0;
+            quizData.forEach(q => {
+                if (q.userAnswer === q.correct) {
+                    correctAnswers++;
+                }
+            });
+            
+            document.getElementById('result-score').textContent = `${correctAnswers}/${totalQuestions}`;
+            
+            const scoreDetails = document.getElementById('score-details');
+            scoreDetails.innerHTML = '<h3>Question Summary:</h3>';
+            
+            const resultList = document.createElement('ol');
+            quizData.forEach((q, index) => {
+                const resultItem = document.createElement('li');
+                let status;
+                
+                if (q.userAnswer === null) {
+                    status = '<span style="color: orange;">Not answered</span>';
+                } else if (q.userAnswer === q.correct) {
+                    status = '<span style="color: green;">Correct</span>';
+                } else {
+                    status = '<span style="color: red;">Incorrect</span>';
+                }
+                
+                resultItem.innerHTML = `${q.question.substring(0, 30)}... - ${status}`;
+                resultList.appendChild(resultItem);
+            });
+            
+            scoreDetails.appendChild(resultList);
+        }
+        
+        function restartQuiz() {
+            quizData.forEach(q => {
+                q.userAnswer = null;
+            });
+            
+            currentQuestion = 0;
+            
+            document.getElementById('result-container').style.display = 'none';
+            
+            document.getElementById('quiz-container').style.display = 'flex';
+            document.getElementById('navigation-container').style.display = 'flex';
+            document.getElementById('pagination-container').style.display = 'flex';
+            
+            loadQuestion(currentQuestion);
+        }
+        
+        window.onload = initQuiz;
+    </script>
 </body>
 </html>
