@@ -520,6 +520,35 @@
     function closePopup() {
         document.getElementById("popup").style.display = "none";
     }
+
+    const carousel = document.querySelector('#motivationCarousel');
+  let startX = 0;
+
+  carousel.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+  });
+
+  carousel.addEventListener('touchend', function(e) {
+    let endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) {
+      bootstrap.Carousel.getInstance(carousel).next();
+    } else if (endX - startX > 50) {
+      bootstrap.Carousel.getInstance(carousel).prev();
+    }
+  });
+
+  carousel.addEventListener('mousedown', function(e) {
+    startX = e.clientX;
+  });
+
+  carousel.addEventListener('mouseup', function(e) {
+    let endX = e.clientX;
+    if (startX - endX > 50) {
+      bootstrap.Carousel.getInstance(carousel).next();
+    } else if (endX - startX > 50) {
+      bootstrap.Carousel.getInstance(carousel).prev();
+    }
+  });
 </script>
 </body>
 </html>
